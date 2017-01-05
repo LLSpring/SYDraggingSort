@@ -6,8 +6,8 @@
 //  Copyright © 2016年 YeLiang. All rights reserved.
 //
 
-#import "YLDargSortModel.h"
+#import "SYDargSortModel.h"
 
-@implementation YLDargSortModel
+@implementation SYDargSortModel
 
 @end

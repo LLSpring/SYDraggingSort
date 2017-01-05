@@ -1,13 +1,13 @@
 //
-//  YLDefine.h
+//  SYDefine.h
 //  DraggingSort
 //
 //  Created by HelloYeah on 2016/12/5.
 //  Copyright © 2016年 YL. All rights reserved.
 //
 
-#ifndef YLDefine_h
-#define YLDefine_h
+#ifndef SYDefine_h
+#define SYDefine_h
 
 
 /***  当前屏幕宽度 */
@@ -24,4 +24,4 @@
 //根据RGB值创建UIColor
 #define RGBColorMake(R,G,B,_alpha_) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:_alpha_]
 
-#endif /* YLDefine_h */
+#endif /*SYDefine_h */

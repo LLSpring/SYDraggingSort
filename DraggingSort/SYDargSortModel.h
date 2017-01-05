@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface YLDargSortModel : NSObject
+@interface SYDargSortModel : NSObject
 
 @property (nonatomic,copy) NSString * name;
 @property (nonatomic,assign) BOOL  selectedFlag;

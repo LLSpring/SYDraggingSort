@@ -6,10 +6,10 @@
 //  Copyright © 2016年 YeLiang. All rights reserved.
 //
 
-#import "YLDragSortTool.h"
+#import "SYDragSortTool.h"
 
-@implementation YLDragSortTool
-static YLDragSortTool *DragSortTool = nil;
+@implementation SYDragSortTool
+static SYDragSortTool *DragSortTool = nil;
 
 + (instancetype)shareInstance
 {

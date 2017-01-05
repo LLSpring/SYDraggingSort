@@ -6,18 +6,18 @@
 //  Copyright © 2016年 YeLiang. All rights reserved.
 //
 
-#import "YLDargSortCell.h"
-#import "YLDragSortTool.h"
+#import "SYDargSortCell.h"
+#import "SYDragSortTool.h"
 #import "UIView+Frame.h"
-#import "YLDefine.h"
+#import "SYDefine.h"
 
 #define kDeleteBtnWH 10 * SCREEN_WIDTH_RATIO
-@interface YLDargSortCell ()<UIGestureRecognizerDelegate>
+@interface SYDargSortCell ()<UIGestureRecognizerDelegate>
 @property (nonatomic,strong)  UILabel *label;
 @property (nonatomic,assign) BOOL  isEditing;
 @property (nonatomic,strong) UIButton * deleteBtn;
 @end
-@implementation YLDargSortCell
+@implementation SYDargSortCell
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -61,8 +61,8 @@
 
 - (void)cancelSubscribe {
 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(YLDargSortCellCancelSubscribe:)]) {
-        [self.delegate YLDargSortCellCancelSubscribe:self.subscribe];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(SYDargSortCellCancelSubscribe:)]) {
+        [self.delegate SYDargSortCellCancelSubscribe:self.subscribe];
     }
 }
 
@@ -79,7 +79,7 @@
 - (void)setSubscribe:(NSString *)subscribe {
     
     _subscribe = subscribe;
-    _deleteBtn.hidden = ![YLDragSortTool shareInstance].isEditing;
+    _deleteBtn.hidden = ![SYDragSortTool shareInstance].isEditing;
     _label.text = subscribe;
     _label.width = self.width - kDeleteBtnWH;
     _label.height = self.height - kDeleteBtnWH;
@@ -89,7 +89,7 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
 
-    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] && ![YLDragSortTool shareInstance].isEditing) {
+    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] && ![SYDragSortTool shareInstance].isEditing) {
         return NO;
     }
     return YES;
@@ -98,8 +98,8 @@
 
 - (void)gestureAction:(UIGestureRecognizer *)gestureRecognizer{
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(YLDargSortCellGestureAction:)]) {
-        [self.delegate YLDargSortCellGestureAction:gestureRecognizer];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(SYDargSortCellGestureAction:)]) {
+        [self.delegate SYDargSortCellGestureAction:gestureRecognizer];
     }
 }
 

@@ -3,13 +3,13 @@
 //   
 //
 //  Created by HelloYeah on 2016/11/30.
-//  Copyright © 2016年 YeLiang. All rights reserved.
+//  Copyright © 2016年 SunYi. All rights reserved.
 //
-#import "YLDragSortViewController.h"
-#import "YLDragSortTool.h"
-#import "YLDargSortCell.h"
+#import "SYDragSortViewController.h"
+#import "SYDragSortTool.h"
+#import "SYDargSortCell.h"
 #import "UIView+Frame.h"
-#import "YLDefine.h"
+#import "SYDefine.h"
 
 #define kSpaceBetweenSubscribe  4 * SCREEN_WIDTH_RATIO
 #define kVerticalSpaceBetweenSubscribe  2 * SCREEN_WIDTH_RATIO
@@ -17,19 +17,19 @@
 #define kContentLeftAndRightSpace  20 * SCREEN_WIDTH_RATIO
 #define kTopViewHeight  80 * SCREEN_WIDTH_RATIO
 
-@interface YLDragSortViewController ()<UICollectionViewDataSource,SKDragSortDelegate>
+@interface SYDragSortViewController ()<UICollectionViewDataSource,SKDragSortDelegate>
 
 @property (nonatomic,strong) UIView * topView;
 @property (nonatomic,strong) UICollectionView * dragSortView;
 @property (nonatomic,strong) UIView * snapshotView; //截屏得到的view
-@property (nonatomic,weak) YLDargSortCell * originalCell;
+@property (nonatomic,weak) SYDargSortCell * originalCell;
 @property (nonatomic,strong) NSIndexPath * indexPath;
 @property (nonatomic,strong) NSIndexPath * nextIndexPath;
 @property (nonatomic,strong) UIButton * sortDeleteBtn;
 
 @end
 
-@implementation YLDragSortViewController
+@implementation SYDragSortViewController
 
 - (void)viewDidLoad {
     
@@ -47,42 +47,42 @@
 #pragma mark - collectionView dataSouce
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [YLDragSortTool shareInstance].subscribeArray.count;
+    return [SYDragSortTool shareInstance].subscribeArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    YLDargSortCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"YLDargSortCell" forIndexPath:indexPath];
+    SYDargSortCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"YLDargSortCell" forIndexPath:indexPath];
     cell.delegate = self;
-    cell.subscribe = [YLDragSortTool shareInstance].subscribeArray[indexPath.row];
+    cell.subscribe = [SYDragSortTool shareInstance].subscribeArray[indexPath.row];
     return cell;
 }
 
 #pragma mark - SKDragSortDelegate
 
-- (void)YLDargSortCellGestureAction:(UIGestureRecognizer *)gestureRecognizer{
+- (void)SYDargSortCellGestureAction:(UIGestureRecognizer *)gestureRecognizer{
     
     //记录上一次手势的位置
     static CGPoint startPoint;
     //触发长按手势的cell
-    YLDargSortCell * cell = (YLDargSortCell *)gestureRecognizer.view;
+    SYDargSortCell * cell = (SYDargSortCell *)gestureRecognizer.view;
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         
         //开始长按
         if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
             
-            [YLDragSortTool shareInstance].isEditing = YES;
+            [SYDragSortTool shareInstance].isEditing = YES;
             [_sortDeleteBtn setTitle:@"完成" forState:UIControlStateNormal];
             self.dragSortView.scrollEnabled = NO;
         }
         
-        if (![YLDragSortTool shareInstance].isEditing) {
+        if (![SYDragSortTool shareInstance].isEditing) {
             return;
         }
      
         NSArray *cells = [self.dragSortView visibleCells];
-        for (YLDargSortCell *cell in cells) {
+        for (SYDargSortCell *cell in cells) {
             [cell showDeleteBtn];
         }
        
@@ -118,11 +118,11 @@
                 _nextIndexPath = [_dragSortView indexPathForCell:cell];
                 if (_nextIndexPath.item > _indexPath.item) {
                     for (NSUInteger i = _indexPath.item; i < _nextIndexPath.item ; i ++) {
-                        [[YLDragSortTool shareInstance].subscribeArray exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
+                        [[SYDragSortTool shareInstance].subscribeArray exchangeObjectAtIndex:i withObjectAtIndex:i + 1];
                     }
                 }else{
                     for (NSUInteger i = _indexPath.item; i > _nextIndexPath.item ; i --) {
-                        [[YLDragSortTool shareInstance].subscribeArray exchangeObjectAtIndex:i withObjectAtIndex:i - 1];
+                        [[SYDragSortTool shareInstance].subscribeArray exchangeObjectAtIndex:i withObjectAtIndex:i - 1];
                     }
                 }
                 //移动
@@ -140,7 +140,7 @@
     }
 }
 
-- (void)YLDargSortCellCancelSubscribe:(NSString *)subscribe {
+- (void)SYDargSortCellCancelSubscribe:(NSString *)subscribe {
     
    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"取消订阅%@",subscribe] message:nil preferredStyle:UIAlertControllerStyleAlert];
     [self presentViewController:alertController animated:YES completion:^{
@@ -202,10 +202,10 @@
 
 - (void)finshClick {
     
-    [YLDragSortTool shareInstance].isEditing = ![YLDragSortTool shareInstance].isEditing;
-    NSString * title = [YLDragSortTool shareInstance].isEditing ? @"完成":@"排序删除";
+    [SYDragSortTool shareInstance].isEditing = ![SYDragSortTool shareInstance].isEditing;
+    NSString * title = [SYDragSortTool shareInstance].isEditing ? @"完成":@"排序删除";
     
-    self.dragSortView.scrollEnabled = ![YLDragSortTool shareInstance].isEditing;
+    self.dragSortView.scrollEnabled = ![SYDragSortTool shareInstance].isEditing;
     [_sortDeleteBtn setTitle:title forState:UIControlStateNormal];
    
     [self.dragSortView reloadData];
@@ -227,7 +227,7 @@
         layout.sectionInset = UIEdgeInsetsMake(kContentLeftAndRightSpace, kContentLeftAndRightSpace, kContentLeftAndRightSpace, kContentLeftAndRightSpace);
         _dragSortView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,kTopViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT - kTopViewHeight) collectionViewLayout:layout];
         //注册cell
-        [_dragSortView registerClass:[YLDargSortCell class] forCellWithReuseIdentifier:@"YLDargSortCell"];
+        [_dragSortView registerClass:[SYDargSortCell class] forCellWithReuseIdentifier:@"YLDargSortCell"];
         _dragSortView.dataSource = self;
         _dragSortView.backgroundColor = [UIColor whiteColor];
     }

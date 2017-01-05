@@ -3,20 +3,20 @@
 //   
 //
 //  Created by HelloYeah on 2016/11/30.
-//  Copyright © 2016年 YeLiang. All rights reserved.
+//  Copyright © 2016年 SunYi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 @protocol SKDragSortDelegate <NSObject>
 
-- (void)YLDargSortCellGestureAction:(UIGestureRecognizer *)gestureRecognizer;
+- (void)SYDargSortCellGestureAction:(UIGestureRecognizer *)gestureRecognizer;
 
-- (void)YLDargSortCellCancelSubscribe:(NSString *)subscribe;
+- (void)SYDargSortCellCancelSubscribe:(NSString *)subscribe;
 
 @end
 
-@interface YLDargSortCell : UICollectionViewCell
+@interface SYDargSortCell : UICollectionViewCell
 @property (nonatomic,strong) NSString * subscribe;
 @property (nonatomic,weak) id<SKDragSortDelegate> delegate;
 
